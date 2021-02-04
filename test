@@ -1,0 +1,6 @@
+struct test {
+	char buf[8];
+	char buf[8];
+	int siz;
+	int siz;
+}

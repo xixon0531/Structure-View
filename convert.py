@@ -40,31 +40,24 @@ def add_memory_32(name, size):
         space_size = len("               ") - len(name)
         result += "     " + name + " "*(space_size-5) + "|"
         memory_size += 0x8
-        if(memory_size == 0x10):
+        if(memory_size == memory_line):
             result += "\n"
     elif(size == 4):
         space_size = len("       ") - len(name)
         result += " " + name + " "*(space_size-1) + "|"
         memory_size += 0x4
-        if(memory_size == 0x10):
+        if(memory_size == memory_line):
             result += "\n"
-
-    '''
-    elif(size == 8):
+    elif(size > 8):
         space_size = len("               ") - len(name)
-        result += "     " + name + " "*(space_size-5) + "|"
-        memory_size += 0x8
-        if(memory_size == 0x10):
-            result += "\n"
-        print(str(result))
-    
-    elif(size > 4):
-        if memory_size < size:
-            out_line = size / 4
-        elif memory_size > size:
-            out_line = memory_size - size
-    '''
-        
+        out_line = size / 8
+        for i in range(out_line):
+            result += "     " + name + " "*(space_size-5) + "|"
+            memory_size += 0x8
+            if(memory_size == memory_line):
+                result += "\n"
+                result += hex(memory_line) + "|"
+                memory_line += 0x10
 
 def check_variable_size_32(buf):
     if buf.find("[") == -1:
